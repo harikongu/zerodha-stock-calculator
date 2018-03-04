@@ -1,0 +1,326 @@
+
+#:kivy 1.0
+
+<Calculator>:
+    id: calculator
+    display: output
+
+    nse: chk_nse
+    bse: chk_bse
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10        
+        GridLayout:
+            orientation:'vertical'
+            rows:1
+            Label:
+                text:'Stock Price Calculator'
+                font_size: '40'
+
+        GridLayout:
+            orientation:'vertical'
+            rows:1
+            size_hint: 1, 1
+            padding: 0.5
+            pos_hint: {'bottom':1.0}
+            ToggleButton:
+                size_hint_y: None
+                height: '48dp'
+                text: 'Intraday Equity'
+                group: 'g1'
+                padding_x: 500
+                id: button1
+                state : 'down'
+                allow_no_selection: False
+                
+            ToggleButton:
+                size_hint_y: None
+                height: '48dp'
+                text: 'Delivery Equity'
+                group: 'g1'
+                id: button2
+                allow_no_selection: False
+
+        GridLayout:
+            rows: 1
+            Label:
+                text:''
+
+        GridLayout:
+            cols:3
+            Label:
+                text: 'BUY'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+            Label:
+                text: 'SELL'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+            Label:
+                text: 'QUANTITY'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+      
+        GridLayout:
+            rows:1
+            size_hint: 1, 1
+            padding: 0.5
+            pos_hint: {'bottom':1.0}
+            TextInput:
+                id: input1
+                
+                size_hint: 1, None
+                readonly: False
+                multiline: False
+                size_hint_x: .8
+                height: 50
+                input_type : 'number'
+                input_filter : 'float'
+                on_text_validate: input1.focus = True
+                on_text: root.calc(self.text)
+                input_type : 'number'
+
+            TextInput:
+                id: input2
+                
+                size_hint: 1, None
+                readonly: False
+                multiline: False
+                height: 50
+                size_hint_x: .8
+                input_type : 'number'
+                input_filter : 'float'
+                on_text_validate: input2.focus = True
+                on_text: root.calc(self.text)
+
+            TextInput:
+                id: input3
+                
+                size_hint: 1, None
+                readonly: False
+                multiline: False
+                height: 50
+                size_hint_x: .8
+                input_type : 'number'
+                input_filter : 'int'
+                on_text_validate: input2.focus = True
+                on_text: root.calc(self.text)
+
+        GridLayout:
+            rows: 1
+            Label:
+                text:''
+
+        
+        GridLayout:
+            orientation: 'vertical'
+            cols: 3
+            rows:1
+            size_hint: 1, 1
+            padding: 0.5
+            pos_hint: {'bottom':1.0}
+
+            BoxLayout:
+                CheckBox:
+                    id: chk_nse
+                    halign: "middle"
+                    padding_x: 0
+                    group :'h1'
+                    allow_no_selection: False
+                    on_active: root.change()
+                Label:
+                    text: "NSE"
+                    text_size: self.size
+                    valign: "middle"
+                    padding_x: 0
+
+                                    
+            BoxLayout:
+                CheckBox:
+                    id: chk_bse
+                    active: False
+                    text_size: self.size
+                    valign: "middle"  
+                    padding_x: 700
+                    group :'h1'
+                    allow_no_selection: False
+                    on_active: root.change()
+                Label:
+                    text: "BSE"
+                    text_size: self.size
+                    valign: "middle"
+                    padding_x: 0
+
+                BoxLayout:
+                    Label:
+                        text:''
+
+
+        GridLayout: 
+            orientation:'vertical'
+            rows:1
+            size_hint: 1, 1
+            padding: 0.5
+            pos_hint: {'bottom':1.0}
+            RelativeLayout:
+                size: self.parent.size
+                pos: -1, -1
+                BoxLayout:
+                    Button:
+                        id: total
+                        height: 35
+                        text:'Calculate'
+                        font_size: '23'  
+                        on_press: calculator.calculate(input1.text +'+'+ input2.text +'+'+  input3.text)
+                        
+        GridLayout:
+            orientation: 'vertical'
+            rows:1
+            size_hint: 1, 1
+            padding: 0.5
+            pos_hint: {'bottom':1.0}
+            Label:
+                text: 'Net profit'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+            Label:
+                id: output
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5   
+
+                        
+        GridLayout:
+            rows: 13
+            cols: 2
+            size_hint: 1, 10
+            padding:20
+            Label:
+                text: 'TrunOver'
+                text_size: self.size
+                valign: "middle"                 # left align
+                padding_x: 5
+                               
+
+            Label:
+                text: '9947.7'
+                text_size: self.size
+                halign: 'right'               # right align
+                padding_x: 5
+
+            Label:
+                text: 'Brokerage' 
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5         
+        
+
+            Label:
+                text: '1'
+                text_size: self.size
+                halign: 'right'
+                padding_x: 5
+
+            Label:
+                text: 'STT total'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+
+            Label:
+                text: '1'
+                text_size: self.size
+                halign: 'right'
+                padding_x: 5
+
+            Label:
+                text: 'Total txn charge'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+
+            Label:
+                text: '3'
+                text_size: self.size
+                halign: 'right'
+                padding_x: 5
+
+            Label: 
+                text: 'GST'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+
+            Label:
+                text: '0.72'
+                text_size: self.size
+                halign: 'right'
+                padding_x: 5
+
+            Label:
+                text: 'SEBI charges'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+
+            Label:
+                text: '0.01'
+                text_size: self.size
+                halign: 'right'
+                padding_x: 5
+
+            Label: 
+                text: 'Total tax and charges'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+
+            Label:
+                text: '5.73' 
+                text_size: self.size
+                halign: 'right'
+                padding_x: 5
+
+            Label:
+                text: 'Points to breakeven'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+
+            Label:
+                text: '0.64'
+                text_size: self.size
+                halign: 'right'
+                padding_x: 5
+            
+            Label: 
+                text: 'GST'
+                text_size: self.size
+                valign: "middle"
+                padding_x: 5
+
+
+            Label:
+                text: '0.72'
+                text_size: self.size
+                halign: 'right'
+                padding_x: 5
+
+            
+        
+                        
